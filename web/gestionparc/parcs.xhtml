@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestion de location</title>
+        <style>
+            .red{
+
+                background-color: yellowgreen;
+                font-size: 22px;
+                text-align: center;
+
+            }
+            .normal{
+                background-color: yellow;
+                font-size: 22px; 
+                text-align: center;
+
+            }
+            .btnimg{
+                background-color:lightblue; 
+                font-size: 20px;
+            }
+            #tete{
+                background-color: white;
+            }
+
+        </style>
+    </h:head>
+    <h:body id="principal" style="width: 1000px; padding-left: 50px;background-image: url(ressources/imgv5.jpg);background-repeat: no-repeat;background-size: 100% 200%;">
+        <h:form id="frm">
+            <p:tabMenu activeIndex="#{param.i}" style="margin-top: 50px;">
+                <p:menuitem value="Gestion de client" outcome="index" style="padding-left: 30px;text-align: center;background-color: lightblue">
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de voiture" outcome="welcomePrimefaces" style="padding-left: 30px;text-align: center;background-color: lightblue" >
+                    <f:param name="i" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de reservation" outcome="welcomePrimefaces" style="padding-left: 30px; text-align: center;background-color: lightblue">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de parc" outcome="gestionparc/parcs" style="padding-left: 30px; text-align: center;background-color: lightblue">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+            </p:tabMenu>
+
+            <p:panel style="background-color: lightgreen"> 
+                <h:form id="form">
+
+                    <p:contextMenu for="ClDT">
+
+                        <p:menuitem value="voir" update=":frm:form:detailClient" icon="ui-icon-search" oncomplete="PF('ClientDialog').show()"/>
+                        <p:menuitem value="supprimer" update="detailClient" icon="ui-icon-close" actionListener="#{gestionClient.supprimer(gestionClient.selectedClient)}"/>
+
+                    </p:contextMenu>
+
+
+
+                    <p:commandLink  action="nouveauclient?faces-redirect=true"  title="ajouter un nouveau client ici">
+                        <p:graphicImage value="ressources/user.png"/>
+                    </p:commandLink>
+
+
+                    <p:dataTable id="ClDT"
+                                 value="#{gestionClient.clients}" filteredValue="#{gestionClient.filtreclients}"
+                                 style="margin-bottom:20px;font-size: 20px; background-color: lightgreen;padding-right:20px"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="1,2,3,5,10,20,50"
+                                 scrollable="true"
+                                 widgetVar="clientTable"
+                                 scrollWidth="938"
+                                 scrollRows="700"
+                                 scrollHeight="auto"
+                                 selection="#{gestionClient.selectedClient}"
+                                 selectionMode="single"
+                                 rowKey="#{clientl.id}"
+                                 rowStyleClass="#{clientl.fideliteCl.equals('Fidèle')?'red':'normal'}"
+                                 resizableColumns="true"
+
+                                 editable="true" draggableRows="true"  draggableColumns="true"  paginator="true" rows="10" var="clientl">
+
+
+
+                        <p:column   width="50" style="font-size: 15px;" sortBy="#{clientl.cinCl}" filterBy="#{clientl.cinCl}" >
+                            <f:facet name="header" id="tete">
+                                Identifiant
+                            </f:facet>
+                            <p:outputLabel   value="#{clientl.cinCl}"/>
+                        </p:column>
+
+                        <p:column  headerText="Nom client" width="50" style="font-size: 15px" sortBy="#{clientl.nomCl}" filterBy="#{clientl.nomCl}" >
+                            <p:outputLabel value="#{clientl.nomCl}"/>
+                        </p:column>
+
+                        <p:column  headerText="Prénom client" style="font-size: 15px" width="100" sortBy="#{clientl.prenomCl}" filterBy="#{clientl.prenomCl}" >
+                            <p:outputLabel value="#{clientl.prenomCl}"/>
+                        </p:column>
+
+                        <p:column  headerText="Num tél client" width="100" style="font-size: 15px" sortBy="#{clientl.numTelCl}" filterBy="#{clientl.numTelCl}" >
+                            <p:outputLabel value="#{clientl.numTelCl}"/>
+                        </p:column>
+
+                        <p:column  headerText="Email Client" width="100" style="font-size: 15px" sortBy="#{clientl.adresseMailCl}" filterBy="#{clientl.adresseMailCl}" >
+                            <p:outputLabel value="#{clientl.adresseMailCl}"/>
+                        </p:column>
+
+                        <p:column  width="16" >
+                            <p:commandLink  action="#{redirectBean.verscreationProjet()}"  title="">
+                                <p:graphicImage value="ressources/voir.png" />
+                            </p:commandLink>
+                        </p:column>
+                        <p:column  width="16" >
+                            <p:commandLink  action="#{gestionClient.recupererClient(clientl)}"  title="Cliquer ici pour modifier la ligne courante">
+                                <p:graphicImage value="ressources/edit1.png" />
+                            </p:commandLink>
+                        </p:column>
+                        <p:column  width="16" >
+                            <p:commandLink   onclick="PF('ss').show()" title="supprimer la ligne">
+
+                                <p:graphicImage value="ressources/trash.png" />
+                            </p:commandLink>
+                            <p:confirmDialog width="300" style="color: red;font-size: 15px"  
+                                             header="Confirmation" severity="alert" widgetVar="ss">
+
+                                <f:facet  name="message">
+                                    Etes-vous vraiment sûre?
+                                </f:facet>
+                                <p:commandButton action="#{gestionClient.supprimer(clientl)}"
+                                                 style="color: tomato;background-color: lightblue;border-radius: 15px;font-size: 15px"
+                                                 value="OK" onclick="PF('ss').hide();"/>
+                            </p:confirmDialog> 
+                        </p:column>
+
+                    </p:dataTable>
+
+                    <p:dialog header="Info client" widgetVar="ClientDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+
+                        <p:outputPanel id="detailClient" style="text-align: center;">
+                            <p:panelGrid columns="2" rendered="#{not empty gestionClient.selectedClient}" columnClasses="label,value">
+
+                                <f:facet name="header">
+                                    detail
+                                </f:facet>   
+                                <p:outputLabel value="id :" />
+                                <p:outputLabel style="color: #e27c16;border-radius: 8px" value="#{gestionClient.selectedClient.id}" />
+
+                                <p:outputLabel value="CIN :" />
+                                <p:outputLabel style="color: #e27c16;border-radius: 8px" value="#{gestionClient.selectedClient.cinCl}" />
+
+                                <p:outputLabel  value="Nom :"/>
+                                <p:outputLabel style="color: #e27c16;border-radius: 8px" value="#{gestionClient.selectedClient.nomCl}"/>
+
+                                <p:outputLabel value="Prénom :"/>
+                                <p:outputLabel style="color: #e27c16;border-radius: 8px" value="#{gestionClient.selectedClient.prenomCl}"/>
+
+                                <p:outputLabel value="Date de naissance :"/>
+                                <p:outputLabel style="color: #e27c16;border-radius: 8px" value="#{gestionClient.selectedClient.dateNaissanceCl}"/>
+
+                                <p:outputLabel  value="Nationnalité:"/>
+                                <p:outputLabel style="color: #e27c16;border-radius: 8px" value="#{gestionClient.selectedClient.nationnaliteCl}"/>
+
+                                <p:outputLabel  value="Numero de permis :"/>
+                                <p:outputLabel style="color: #e27c16;border-radius: 8px" value="#{gestionClient.selectedClient.numPermi}"/>
+
+                                <p:outputLabel  value="Fidélité:"/>
+                                <p:outputLabel style="color: #e27c16;border-radius: 8px" value="#{gestionClient.selectedClient.adresseCl}"/>
+
+
+                                <p:outputLabel  value="Adresse :"/>
+                                <p:inputText style="color: #e27c16;border-radius: 8px" value="#{gestionClient.selectedClient.adresseCl}" required="true"/>
+
+                                <p:outputLabel  value="Numero de téléphone :"/>
+                                <p:outputLabel style="color: #e27c16;border-radius: 8px" value="#{gestionClient.selectedClient.numTelCl}"/>
+
+                                <p:outputLabel  value="Adresse mail :"/>
+                                <p:outputLabel style="color: #e27c16;border-radius: 8px" value="#{gestionClient.selectedClient.adresseMailCl}"/>
+                            </p:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+            </p:panel>
+
+        </h:form>
+    </h:body>
+</html>
+

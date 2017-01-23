@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestion de location</title>
+        <style>
+            .red{
+
+                background-color: yellowgreen;
+                font-size: 22px;
+                text-align: center;
+
+            }
+           
+
+        </style>
+    </h:head>
+    <h:body id="principal" style="width: 1000px; padding-left: 50px;background-image: url(ressources/background.jpg);background-repeat: no-repeat;background-size: 100% 200%;">
+       <p:themeSwitcher id="chtheme" onchange="#{themeService.orchangeListiner()}" value="#{themeService.theme}" style="width:165px" effect="fade" var="t">
+            <f:selectItem itemLabel="Choose Theme" itemValue="" />
+           
+            <f:selectItems value="#{themeService.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}" />
+            <p:column>
+                <h:outputText styleClass="ui-theme ui-theme-" style="display-block" />
+            </p:column>
+        </p:themeSwitcher>
+        <h:form id="frm">
+        <p:tabMenu activeIndex="#{1}" style="margin-top: 50px;">
+                <p:menuitem value="Gestion de client" outcome="index" style="padding-left: 30px;text-align: center">
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de voiture" outcome="voitures" style="padding-left: 30px;text-align: center" >
+                    <f:param name="i" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de reservation" outcome="reservation" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de parc" outcome="parcs" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+            </p:tabMenu>
+
+            <p:panel> 
+                <h:form id="form">
+
+                 
+                    <p:commandLink  action="nouveauvoiture?faces-redirect=true"  title="ajouter une nouvelle voiture ici">
+                        <p:graphicImage value="ressources/car.png"/>
+                    </p:commandLink>
+
+
+                    <p:dataTable id="ClDT"
+                                 value="#{gestionVoiture.voitures}" 
+                                 style="margin-bottom:20px;font-size: 20px;padding-right:20px"
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="1,2,3,5,10,20,50"
+                                 scrollable="true"
+                                 widgetVar="clientTable"
+                                 scrollWidth="938"
+                                 scrollRows="700"
+                                 scrollHeight="auto"
+                                 selectionMode="single"
+                                 rowKey="#{voiturel.idVoiture}"
+                                 rowStyleClass="normal"
+                                 resizableColumns="true"
+
+                                 editable="true" draggableRows="true"  draggableColumns="true"  paginator="true" rows="10" var="voiturel">
+
+
+
+                        <p:column   width="50" style="font-size: 15px;" sortBy="#{voiturel.immatriculationVoiture}" filterBy="#{voiturel.immatriculationVoiture}" >
+                            <f:facet name="header" id="tete">
+                            Matricule
+                            </f:facet>
+                            <p:outputLabel   value="#{voiturel.immatriculationVoiture}"/>
+                        </p:column>
+
+                        <p:column  headerText="Marque" width="50" style="font-size: 15px" sortBy="#{voiturel.marqueVoiture}" filterBy="#{voiturel.marqueVoiture}" >
+                            <p:outputLabel value="#{voiturel.marqueVoiture}"/>
+                        </p:column>
+
+                        <p:column  headerText="Catégorie" style="font-size: 15px" width="100" sortBy="#{voiturel.categorieVoiture}" filterBy="#{voiturel.categorieVoiture}" >
+                            <p:outputLabel value="#{voiturel.categorieVoiture}"/>
+                        </p:column>
+
+                        <p:column  headerText="Modèle" width="100" style="font-size: 15px" sortBy="#{voiturel.modeleVoiture}" filterBy="#{voiturel.modeleVoiture}" >
+                            <p:outputLabel value="#{voiturel.modeleVoiture}"/>
+                        </p:column>
+
+                        <p:column  headerText="Année de mise service" width="100" style="font-size: 15px" sortBy="#{voiturel.anneeMiseService}" filterBy="#{voiturel.anneeMiseService}" >
+                            <p:outputLabel value="#{voiturel.anneeMiseService}"/>
+                        </p:column>
+
+                        <p:column  width="16" >
+                            <p:commandLink  action="#{detailVoiture.recupererVoiture(voiturel)}"  
+                                 title="cliquez ici pour voir plus de détail sur cette voiture">
+                                <p:graphicImage value="ressources/voir.png" />
+                            </p:commandLink>
+                        </p:column>
+                        <p:column  width="16" >
+                            <p:commandLink  action="#{gestionVoiture.recupererVoiture(voiturel)}"  title="Cliquer ici pour modifier la ligne courante">
+                                <p:graphicImage value="ressources/edit1.png" />
+                            </p:commandLink>
+                        </p:column>
+                        <p:column  width="16" >
+                            <p:commandLink  action="#{gestionVoiture.recupererVtl(voiturel)}" onclick="PF('ss').show()" title="supprimer la ligne">
+
+                                <p:graphicImage value="ressources/trash.png" />
+                            </p:commandLink>
+                            <p:confirmDialog width="300" style="color: red;font-size: 15px"  
+                                             header="Confirmation" severity="alert" widgetVar="ss">
+
+                                <f:facet  name="message">
+                                    Etes-vous vraiment sûre?
+                                </f:facet>
+                                <p:commandButton action="#{gestionVoiture.supprimer(gestionVoiture.voiture)}"
+                                                 style="border-radius: 15px;font-size: 15px"
+                                                 value="OK" onclick="PF('ss').hide();"/>
+                            </p:confirmDialog> 
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </p:panel>
+
+        </h:form>
+    </h:body>
+</html>
+

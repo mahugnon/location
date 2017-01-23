@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestion de location</title>
+        
+    </h:head>
+    <h:body id="principal" style="width: 1000px; padding-left: 50px;background-image: url(ressources/background.jpg)">
+       <h:form id="frm">
+       <p:themeSwitcher id="chtheme" onchange="#{themeService.orchangeListiner()}" value="#{themeService.theme}" style="width:165px" effect="fade" var="t">
+            <f:selectItem itemLabel="Choose Theme" itemValue="" />
+           
+            <f:selectItems value="#{themeService.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}" />
+            <p:column>
+                <h:outputText styleClass="ui-theme ui-theme-" style="display-block" />
+            </p:column>
+        </p:themeSwitcher>
+           <p:tabMenu activeIndex="#{param.i}" style="margin-top: 50px;">
+                <p:menuitem value="Gestion de client" outcome="index" style="padding-left: 30px;text-align: center">
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de voiture" outcome="voitures" style="padding-left: 30px;text-align: center" >
+                    <f:param name="i" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de reservation" outcome="reservation" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de parc" outcome="parcs" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+            </p:tabMenu>
+
+            <h:panelGrid  columns="2" cellpadding="4"  style="margin:0 auto ; font-size: 15px" cellspacing="3">
+                <p:outputLabel for="k" value="Kilomètrage :" />
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="k" value="#{gestionVoiture.voiture.kilmetrageVoiture}" required="true"/>
+
+                <p:outputLabel for="v"  value="Boite à vitesse :"/>
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="v" value="#{gestionVoiture.voiture.boiteVitesseVoiture}" required="true"/>
+
+                <p:outputLabel for="c" value="Catégorie :"/>
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="c" value="#{gestionVoiture.voiture.categorieVoiture}" required="true"/>
+                
+                <p:outputLabel for="cab" value="Carburant :"/>
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="cab" value="#{gestionVoiture.voiture.carburantVoiture}" required="true"/>
+
+             
+                <p:outputLabel for="p" value="Parc"/>
+                <h:panelGroup> 
+                    <p:selectOneMenu id="p" style="border-radius: 8px;width: 190px;font-size: 15px" value="#{gestionVoiture.numPac}"  var="nationalite_var" 
+                                     filterMatchMode="startsWith" effect="fade"  filter="true">
+                        <f:selectItem itemLabel="Selectionner un parc" itemValue=""/>
+                        <f:selectItems value="#{gestionVoiture.parcs}" var="parc"
+                                       itemLabel="#{parc.numParc}" itemValue="#{parc.numParc}"/>
+                    </p:selectOneMenu>
+                </h:panelGroup>
+                
+                <p:commandButton value="Validé" action="#{gestionVoiture.modifierVoiture()}"/>
+                <p:commandButton value="Retour" action="#{gestionParc.vider()}"/>
+            </h:panelGrid>
+        </h:form>    
+    </h:body>
+</html>
+

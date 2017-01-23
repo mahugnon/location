@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestion de location</title>
+       
+    </h:head>
+    <h:body id="principal" style="background-color: yellowgreen;width: 1000px; padding-left: 50px;background-image: url(ressources/background.jpg)">
+      <p:themeSwitcher id="chtheme" onchange="#{themeService.orchangeListiner()}" value="#{themeService.theme}" style="width:165px" effect="fade" var="t">
+            <f:selectItem itemLabel="Choose Theme" itemValue="" />
+           
+            <f:selectItems value="#{themeService.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}" />
+            <p:column>
+                <h:outputText styleClass="ui-theme ui-theme-" style="display-block" />
+            </p:column>
+        </p:themeSwitcher>
+        <h:form id="frm">
+        <p:tabMenu activeIndex="#{1}" style="margin-top: 50px;">
+                <p:menuitem value="Gestion de client" outcome="index" style="padding-left: 30px;text-align: center">
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de voiture" outcome="voitures" style="padding-left: 30px;text-align: center" >
+                    <f:param name="i" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de reservation" outcome="reservation" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de parc" outcome="parcs" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="3" />
+                </p:menuitem>
+            </p:tabMenu>
+
+            <h:panelGrid  columns="2" cellpadding="4"  style="margin:0 auto ; font-size: 15px" cellspacing="3">
+                <p:outputLabel for="im" value="Immatriculation :" />
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="im" value="#{gestionVoiture.voiture.immatriculationVoiture}" required="true"/>
+
+               
+                <p:outputLabel for="mod" value="Modèle :"/>
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="mod" value="#{gestionVoiture.voiture.modeleVoiture}" required="true"/>
+
+                <p:outputLabel for="annee" value="Année de mise en service :"/>
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="annee" value="#{gestionVoiture.voiture.anneeMiseService}" required="true">
+                    <p:keyFilter mask="num"/>
+                </p:inputText>
+
+               
+                <p:outputLabel for="mak" value="Marque:"/>
+                <h:panelGroup> 
+                    <p:selectOneMenu id="mak" style="border-radius: 8px;width: 190px;font-size: 15px" value="#{gestionVoiture.voiture.marqueVoiture}"  var="nationalite_var" 
+                                     filterMatchMode="startsWith" effect="fade"  filter="true">
+                        <f:selectItem itemLabel="Selectionner la marque" itemValue=""/>
+                        <f:selectItems value="#{gestionVoiture.marques}" var="marque"
+                                       itemLabel="#{marque}" itemValue="#{marque}"/>
+                    </p:selectOneMenu>
+                </h:panelGroup>
+                
+                <p:outputLabel for="col" value="Couleur :"/>
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="col" value="#{gestionVoiture.voiture.couleurVoiture}" required="true"/>
+               
+                <p:outputLabel for="place" value="Nombre de place :"/>
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="place" value="#{gestionVoiture.voiture.nbrPlacesVoiture}" required="true"/>
+               
+                <p:outputLabel for="porte" value="Nombre de porte :"/>
+               <p:inputText style="border-radius: 8px;font-size: 15px" id="porte" value="#{gestionVoiture.voiture.nbrPortesVoiture}" required="true"/>
+               
+                <p:outputLabel for="type" value="Type :"/>
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="type" value="#{gestionVoiture.voiture.typeVoiture}" required="true"/>
+               
+                 <p:outputLabel for="clim" value="Climatisation"/>
+                <h:panelGroup> 
+                    <p:selectOneRadio id="clim" style="font-size: 15px; font-weight: 200" value="#{gestionVoiture.voiture.climatisationVoiture}" 
+                   >
+                        <f:selectItem itemLabel="Climatiser" itemValue="Climatiser"/>
+                        <f:selectItem itemLabel="Non climatiser" itemValue="Non climatiser"/>
+                        
+                    </p:selectOneRadio>
+                </h:panelGroup>
+
+                <p:outputLabel for="etat" value="Etat :"/>
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="etat" value="#{gestionVoiture.voiture.etatVoiture}" required="true"/>
+               
+                <p:commandButton value="suivant" action="nouveauvoiture_1?faces-redirect=true" style="margin-left: 150px"/>
+            </h:panelGrid>
+        </h:form>    
+    </h:body>
+</html>
+

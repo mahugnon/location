@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20 janv. 2017 05:34:42 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dao.Entretient" table="entretient" catalog="loc_voiture_db" optimistic-lock="version">
+        <id name="idEnt" type="java.lang.Integer">
+            <column name="id_ent" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="voiture" class="dao.Voiture" fetch="select">
+            <column name="id_voiture" not-null="true" />
+        </many-to-one>
+        <property name="typeEnt" type="int">
+            <column name="type_ent" not-null="true" />
+        </property>
+        <property name="dateEnt" type="int">
+            <column name="date_ent" not-null="true" />
+        </property>
+        <property name="montantEnt" type="long">
+            <column name="montant_ent" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

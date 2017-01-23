@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestion de location</title>
+        
+    </h:head>
+    <h:body id="principal" style="width:1000px; padding-left: 50px;background-image: url(ressources/background.jpg)">
+      <p:themeSwitcher id="chtheme" onchange="#{themeService.orchangeListiner()}" value="#{themeService.theme}" style="width:165px" effect="fade" var="t">
+            <f:selectItem itemLabel="Choose Theme" itemValue="" />
+           
+            <f:selectItems value="#{themeService.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}" />
+            <p:column>
+                <h:outputText styleClass="ui-theme ui-theme-" style="display-block" />
+            </p:column>
+        </p:themeSwitcher>
+        <h:form id="frm">
+        <p:tabMenu activeIndex="#{2}" style="margin-top: 50px;">
+                <p:menuitem value="Gestion de client" outcome="index" style="padding-left: 30px;text-align: center">
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de voiture" outcome="voitures" style="padding-left: 30px;text-align: center" >
+                    <f:param name="i" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de reservation" outcome="reservation" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de parc" outcome="parcs" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+            </p:tabMenu>
+
+            <h:panelGrid  columns="2" cellpadding="4"  style="margin:0 auto ; font-size: 15px" cellspacing="3">
+                <p:outputLabel for="numparc" value="Numero du parc :" />
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="numparc" value="#{gestionParc.parc.numParc}" required="true"/>
+
+                <p:outputLabel for="categorie"  value="Catégorie de voiture :"/>
+                <p:inputText style="border-radius: 8px;font-size: 15px" id="categorie" value="#{gestionParc.parc.categorieVoiture}" required="true"/>
+
+               
+                <p:commandButton value="Validé" action="#{gestionParc.modifierParc()}"/>
+                <p:commandButton value="Annulé" action="#{gestionParc.vider()}"/>
+            </h:panelGrid>
+
+
+        </h:form>    
+    </h:body>
+</html>
+

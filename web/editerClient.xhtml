@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestion de location</title>
+
+    </h:head>
+    <h:body id="principal" style="width: 1000px; padding-left: 50px;background-image: url(ressources/background.jpg)">
+       <p:themeSwitcher id="chtheme" onchange="#{themeService.orchangeListiner()}" value="#{themeService.theme}" style="width:165px" effect="fade" var="t">
+            <f:selectItem itemLabel="Choose Theme" itemValue="" />
+           
+            <f:selectItems value="#{themeService.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}" />
+            <p:column>
+                <h:outputText styleClass="ui-theme ui-theme-" style="display-block" />
+            </p:column>
+        </p:themeSwitcher>
+        
+        <h:form id="frm">
+            <p:tabMenu activeIndex="#{param.i}" style="margin-top: 50px;">
+                <p:menuitem value="Gestion de client" outcome="index" style="padding-left: 30px;text-align: center">
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de voiture" outcome="voitures" style="padding-left: 30px;text-align: center" >
+                    <f:param name="i" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de reservation" outcome="reservation" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de parc" outcome="parcs" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+            </p:tabMenu>
+
+          
+                <h:panelGrid columns="6" cellpadding="3">
+
+                    <p:outputLabel style="border-radius: 8px;font-size: 15px;" for="sexe" value="Civilité :"/>
+                    <p:selectOneMenu style="border-radius: 8px;font-size: 15px;width: 100px" id="sexe" required="true" value="#{gestionClient.client.civilite}">
+
+                        <f:selectItem itemLabel="Mr" itemValue="Mr"/>
+                        <f:selectItem itemLabel="Mme" itemValue="Mme"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel />
+                    <p:outputLabel style="border-radius: 8px;font-size: 15px;" for="nom" value="Nom :"/>
+                    <p:inputText style="border-radius: 8px;font-size: 15px;" value="#{gestionClient.client.nomCl}" id="nom" required="true" placeholder="votre nom"/>
+                    <p:keyFilter mask="alpha" for="nom"/>
+
+                    <p:outputLabel style="border-radius: 8px;font-size: 15px;" for="prenom" value="Prénom :"/>
+                    <p:inputText style="border-radius: 8px;font-size: 15px;" value="#{gestionClient.client.prenomCl}" id="prenom" required="true" placeholder="votre prénom"/>
+                    <p:keyFilter mask="alpha" for="prenom"/>
+
+                    <p:outputLabel style="border-radius: 8px;font-size: 15px;" for="naiss" value="Date de naisssance :"/>
+                    <p:calendar  style="border-radius: 8px;font-size: 15px;width: 100px" placeholder="votre date de naissance" id="naiss" locale="tr" showButtonPanel="true" navigator="true" showWeek="true"
+                                 timeZone="Europe/Paris" showOn="button" required="true" 
+                                 value="#{gestionClient.client.dateNaissanceCl}" pattern="dd/MM/yyyy"  />
+                    <p:outputLabel />
+
+                    <p:outputLabel style="border-radius: 8px;font-size: 15px;width: 100px" for="nat" value="Nationnalité :"/>
+                    <p:selectOneMenu id="nat" value="#{gestionClient.client.nationnaliteCl}" style="border-radius: 8px;font-size: 15px;width: 100px" 
+                                     var="nationalite_var" 
+                                     filterMatchMode="startsWith" effect="fade"  filter="true">
+                        <f:selectItem itemLabel="votre pays" itemValue=""/>
+                        <f:selectItems value="#{gestionClient.nationalites}" var="pays"
+                                       itemLabel="#{pays.commoName}" itemValue="#{pays.formalName}"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel />
+
+                    <p:outputLabel style="border-radius: 8px;font-size: 15px;" for="cin" value="N°Cin ou passeport :"/>
+                    <p:inputText style="border-radius: 8px;font-size: 15px;" value="#{gestionClient.client.cinCl}" id="cin" required="true" placeholder="votre CIN ou numero de passeport"/>
+                    <p:keyFilter mask="alphanum" for="prenom"/>
+
+
+                    <p:outputLabel for="nump" value="N°Permit :" style="border-radius: 8px;font-size: 15px;width: 100px"/>
+                    <p:inputText style="border-radius: 8px;font-size: 15px;" value="#{gestionClient.client.numPermi}" id="nump" required="true" placeholder="votre numero de permit"/>
+                    <p:keyFilter mask="alphanum" for="nump" />
+
+                    <p:outputLabel for="email" value="Email :" style="border-radius: 8px;font-size: 15px;"/>
+                    <p:inputText style="border-radius: 8px;font-size: 15px;" value="#{gestionClient.client.adresseMailCl}" id="email" required="true" placeholder="votre addresse email"/>
+                    <p:keyFilter mask="email" for="email"/>
+
+                    <p:outputLabel style="border-radius: 8px;font-size: 15px;" for="tel" value="N°Tel :"/>
+                    <p:inputText style="border-radius: 8px;font-size: 15px;" value="#{gestionClient.client.numTelCl}" id="tel" required="true" placeholder="votre tél"/>
+                    <p:keyFilter mask="num" for="tel"/>
+
+                    <p:outputLabel style="border-radius: 8px;font-size: 15px;" for="adr" value="Adresse :"/>
+                    <p:inputText style="border-radius: 8px;font-size: 15px;" value="#{gestionClient.client.adresseCl}" id="adr" required="true" placeholder="votre adresse"/>
+                    <p:outputLabel/>
+                    <p:commandButton value="Validé" icon=" ui-icon-check" action="#{gestionClient.editer()}"/>
+                    <p:commandButton value="Annulé" immediate="true" icon="ui-icon-arrowreturnthick-1-w" action="#{gestionClient.vider()}"/>
+
+                </h:panelGrid>
+
+        </h:form>    
+    </h:body>
+</html>
+

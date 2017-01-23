@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20 janv. 2017 05:34:42 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dao.TcPays" table="tc_pays" catalog="loc_voiture_db" optimistic-lock="version">
+        <id name="sortOrder" type="string">
+            <column name="Sort_Order" />
+            <generator class="assigned" />
+        </id>
+        <property name="commoName" type="string">
+            <column name="Commo_Name" />
+        </property>
+        <property name="formalName" type="string">
+            <column name="Formal_Name" />
+        </property>
+        <property name="type" type="string">
+            <column name="Type" />
+        </property>
+        <property name="subType" type="string">
+            <column name="Sub_Type" />
+        </property>
+        <property name="sovereignty" type="string">
+            <column name="Sovereignty" />
+        </property>
+        <property name="capital" type="string">
+            <column name="Capital" />
+        </property>
+        <property name="iso4217CurrencyCode" type="string">
+            <column name="`ISO_4217 Currency Code`" />
+        </property>
+        <property name="iso4217CurrencyName" type="string">
+            <column name="`ISO_4217 Currency Name`" />
+        </property>
+        <property name="ituTTelephoneCode" type="string">
+            <column name="`ITU-T_Telephone_Code`" />
+        </property>
+        <property name="iso316612LetterCode" type="string">
+            <column name="ISO_3166_1_2_Letter_Code" />
+        </property>
+        <property name="iso316613LetterCode" type="string">
+            <column name="ISO_3166_1_3_Letter_Code" />
+        </property>
+        <property name="iso31661Number" type="string">
+            <column name="ISO_3166_1_Number" />
+        </property>
+        <property name="ianaCountryCodeTld" type="string">
+            <column name="IANA_Country_Code_TLD" />
+        </property>
+    </class>
+</hibernate-mapping>

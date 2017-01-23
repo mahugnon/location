@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20 janv. 2017 05:34:42 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dao.Facture" table="facture" catalog="loc_voiture_db" optimistic-lock="version">
+        <id name="idFac" type="java.lang.Integer">
+            <column name="id_fac" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="client" class="dao.Client" fetch="select">
+            <column name="id_cl" not-null="true" />
+        </many-to-one>
+        <many-to-one name="voiture" class="dao.Voiture" fetch="select">
+            <column name="id_voiture" not-null="true" />
+        </many-to-one>
+        <property name="numCarteCl" type="string">
+            <column name="num_carte_cl" length="50" not-null="true" />
+        </property>
+        <property name="dateFac" type="int">
+            <column name="date_fac" not-null="true" />
+        </property>
+        <property name="montantFac" type="int">
+            <column name="montant_fac" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

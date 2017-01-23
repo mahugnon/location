@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Gestion de location</title>
+        <style>
+            .red{
+
+                background-color: yellowgreen;
+                font-size: 22px;
+                text-align: center;
+
+            }
+           
+
+        </style>
+    </h:head>
+    <h:body id="principal" style="width: 100%; height: 100%; margin: 0%">
+        <p:themeSwitcher id="chtheme" onchange="#{themeService.orchangeListiner()}" value="#{themeService.theme}" style="width:165px" effect="fade" var="t">
+            <f:selectItem itemLabel="Choose Theme" itemValue="" />
+           
+            <f:selectItems value="#{themeService.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}" />
+            <p:column>
+                <h:outputText styleClass="ui-theme ui-theme-" style="display-block" />
+            </p:column>
+        </p:themeSwitcher>
+        <h:form id="frm">
+            <p:tabMenu activeIndex="#{1}">
+                <p:menuitem value="Gestion de client" outcome="index" style="padding-left: 30px;text-align: center">
+                    <f:param name="i" value="0" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de voiture" outcome="voitures" style="padding-left: 30px;text-align: center" >
+                    <f:param name="i" value="1" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de reservation" outcome="reservation" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="2" />
+                </p:menuitem>
+                <p:menuitem value="Gestion de parc" outcome="parcs" style="padding-left: 30px; text-align: center">
+                    <f:param name="i" value="3" />
+                </p:menuitem>
+            </p:tabMenu>
+
+            <p:accordionPanel multiple="true"> 
+                
+                <p:tab title="Information de la voiture #{detailVoiture.voiture.immatriculationVoiture}">
+                  
+                    <h:panelGrid columns="2" cellpadding="3">
+                                    <p:graphicImage id="photo" height="400px" width="400px" value="#{detailVoiture.streamedImage}" styleClass="content"/>
+
+                                    <h:panelGrid columns="2" cellpadding="3">
+
+                    <h:outputText value="Année de mise en service" />
+                    <h:outputText value="#{detailVoiture.voiture.anneeMiseService}" />
+
+                    <h:outputText value="Boîte à vitesse" />
+                    <h:outputText value="#{detailVoiture.voiture.boiteVitesseVoiture}" />
+
+                    <h:outputText value="Carburant" />
+                    <h:outputText value="#{detailVoiture.voiture.carburantVoiture}" />
+
+                    <h:outputText value="Catégorie" />
+                    <h:outputText value="#{detailVoiture.voiture.categorieVoiture}" />
+
+                    <h:outputText value="Climatisation" />
+                    <h:outputText value="#{detailVoiture.voiture.climatisationVoiture}" />
+
+                    <h:outputText value="Couleur" />
+                    <h:outputText value="#{detailVoiture.voiture.couleurVoiture}" />
+
+                    <h:outputText value="Etat" />
+                    <h:outputText value="#{detailVoiture.voiture.etatVoiture}" />
+
+                    <h:outputText value="Immatricule" />
+                    <h:outputText value="#{detailVoiture.voiture.immatriculationVoiture}" />
+
+                    <h:outputText value="Marque" />
+                    <h:outputText value="#{detailVoiture.voiture.marqueVoiture}" />
+
+                    <h:outputText value="Modèle" />
+                    <h:outputText value="#{detailVoiture.voiture.modeleVoiture}" />
+
+                    <h:outputText value="Nombre de places" />
+                    <h:outputText value="#{detailVoiture.voiture.nbrPlacesVoiture}" />
+
+                    <h:outputText value="Nombre de porte" />
+                    <h:outputText value="#{detailVoiture.voiture.nbrPortesVoiture}" />
+
+                    <h:outputText value="Type" />
+                    <h:outputText value="#{detailVoiture.voiture.typeVoiture}" />
+                    
+                    <h:outputText value="Prix/Jour pour 1semaine" />
+                    <h:outputText value="#{detailVoiture.voiture.prixParJour1semaine} DT" />
+
+                    <h:outputText value="Prix/Jour pour 1semaine" />
+                    <h:outputText value="#{detailVoiture.voiture.prixParJour3jour} DT" />
+
+                </h:panelGrid>
+                       </h:panelGrid>  
+                    </p:tab>
+                <p:tab disabled="#{detailVoiture.testEtat()}" title="réservations">
+                    <p:dataTable value="#{detailVoiture.rsvs}" var="rsvl">
+                        <p:column headerText="Date début réservation">
+                            <p:outputLabel value="#{rsvl.dateDebutReserv}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Date fin réservation">
+                            <p:outputLabel value="#{rsvl.dateFinReserv}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Date début réservation">
+                            <p:outputLabel value="#{rsvl.dateDebutReserv}"/>
+                        </p:column>
+                        
+                         <p:column headerText="Nom et prénom du client">
+                             <p:outputLabel value="#{detailVoiture.clientParId(rsvl.client.id)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+            </p:accordionPanel>
+
+        </h:form>
+    </h:body>
+</html>
+
+

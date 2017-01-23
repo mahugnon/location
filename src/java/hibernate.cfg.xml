@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/loc_voiture_db</property>
+    <property name="hibernate.connection.username">root</property>
+    <mapping resource="dao/Parc.hbm.xml"/>
+    <mapping resource="dao/Facture.hbm.xml"/>
+    <mapping resource="dao/Contrat.hbm.xml"/>
+    <mapping resource="dao/Reservation.hbm.xml"/>
+    <mapping resource="dao/Image.hbm.xml"/>
+    <mapping resource="dao/Client.hbm.xml"/>
+    <mapping resource="dao/Entretient.hbm.xml"/>
+    <mapping resource="dao/Voiture.hbm.xml"/>
+    <mapping resource="dao/TcPays.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

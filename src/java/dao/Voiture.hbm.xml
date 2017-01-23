@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20 janv. 2017 05:34:42 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dao.Voiture" table="voiture" catalog="loc_voiture_db" optimistic-lock="version">
+        <id name="idVoiture" type="java.lang.Integer">
+            <column name="id_voiture" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="parc" class="dao.Parc" fetch="select">
+            <column name="id_pac_voiture" not-null="true" />
+        </many-to-one>
+        <property name="immatriculationVoiture" type="string">
+            <column name="immatriculation_voiture" length="50" not-null="true" />
+        </property>
+        <property name="marqueVoiture" type="string">
+            <column name="marque_voiture" length="50" not-null="true" />
+        </property>
+        <property name="modeleVoiture" type="string">
+            <column name="modele_voiture" length="50" not-null="true" />
+        </property>
+        <property name="categorieVoiture" type="string">
+            <column name="categorie_voiture" length="50" not-null="true" />
+        </property>
+        <property name="couleurVoiture" type="string">
+            <column name="couleur_voiture" length="50" not-null="true" />
+        </property>
+        <property name="carburantVoiture" type="string">
+            <column name="carburant_voiture" length="50" not-null="true" />
+        </property>
+        <property name="boiteVitesseVoiture" type="string">
+            <column name="boite_vitesse_voiture" length="50" not-null="true" />
+        </property>
+        <property name="climatisationVoiture" type="string">
+            <column name="climatisation_voiture" length="50" not-null="true" />
+        </property>
+        <property name="nbrPortesVoiture" type="int">
+            <column name="nbr_portes_voiture" not-null="true" />
+        </property>
+        <property name="nbrPlacesVoiture" type="int">
+            <column name="nbr_places_voiture" not-null="true" />
+        </property>
+        <property name="typeVoiture" type="string">
+            <column name="type_voiture" length="50" not-null="true" />
+        </property>
+        <property name="etatVoiture" type="string">
+            <column name="etat_voiture" length="50" not-null="true" />
+        </property>
+        <property name="anneeMiseService" type="string">
+            <column name="annee_mise_service" length="10" not-null="true" />
+        </property>
+        <property name="type" type="string">
+            <column name="type" length="50" not-null="true" />
+        </property>
+        <property name="image" type="binary">
+            <column name="image" not-null="true" />
+        </property>
+        <property name="prixParJour3jour" type="string">
+            <column name="prix_par_jour_3jour" length="50" not-null="true" />
+        </property>
+        <property name="prixParJour1semaine" type="string">
+            <column name="prix_par_jour_1semaine" length="50" not-null="true" />
+        </property>
+        <set name="entretients" table="entretient" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_voiture" not-null="true" />
+            </key>
+            <one-to-many class="dao.Entretient" />
+        </set>
+        <set name="factures" table="facture" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_voiture" not-null="true" />
+            </key>
+            <one-to-many class="dao.Facture" />
+        </set>
+        <set name="contrats" table="contrat" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_voiture" not-null="true" />
+            </key>
+            <one-to-many class="dao.Contrat" />
+        </set>
+        <set name="reservations" table="reservation" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_voiture" not-null="true" />
+            </key>
+            <one-to-many class="dao.Reservation" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20 janv. 2017 05:34:42 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dao.Client" table="client" catalog="loc_voiture_db" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="cinCl" type="string">
+            <column name="cin_cl" length="50" not-null="true" />
+        </property>
+        <property name="civilite" type="string">
+            <column name="civilite" length="20" not-null="true" />
+        </property>
+        <property name="nomCl" type="string">
+            <column name="nom_cl" length="50" not-null="true" />
+        </property>
+        <property name="prenomCl" type="string">
+            <column name="prenom_cl" length="50" not-null="true" />
+        </property>
+        <property name="numPermi" type="string">
+            <column name="num_permi" length="50" not-null="true" />
+        </property>
+        <property name="dateNaissanceCl" type="date">
+            <column name="date_naissance_cl" length="10" not-null="true" />
+        </property>
+        <property name="nationnaliteCl" type="string">
+            <column name="nationnalite_cl" length="50" not-null="true" />
+        </property>
+        <property name="fideliteCl" type="string">
+            <column name="fidelite_cl" length="50" not-null="true" />
+        </property>
+        <property name="adresseCl" type="string">
+            <column name="adresse_cl" length="50" not-null="true" />
+        </property>
+        <property name="numTelCl" type="int">
+            <column name="num_tel_cl" not-null="true" />
+        </property>
+        <property name="adresseMailCl" type="string">
+            <column name="adresse_mail_cl" length="50" not-null="true" />
+        </property>
+        <property name="motDePasse" type="string">
+            <column name="mot_de_passe" length="50" />
+        </property>
+        <set name="factures" table="facture" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cl" not-null="true" />
+            </key>
+            <one-to-many class="dao.Facture" />
+        </set>
+        <set name="contrats" table="contrat" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_client" not-null="true" />
+            </key>
+            <one-to-many class="dao.Contrat" />
+        </set>
+        <set name="reservations" table="reservation" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_cl" not-null="true" />
+            </key>
+            <one-to-many class="dao.Reservation" />
+        </set>
+    </class>
+</hibernate-mapping>

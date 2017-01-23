@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20 janv. 2017 05:34:42 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="dao.Parc" table="parc" catalog="loc_voiture_db" optimistic-lock="version">
+        <id name="idPac" type="java.lang.Integer">
+            <column name="id_pac" />
+            <generator class="identity" />
+        </id>
+        <property name="numParc" type="string">
+            <column name="num_parc" length="50" not-null="true" />
+        </property>
+        <property name="categorieVoiture" type="string">
+            <column name="categorie_voiture" length="50" not-null="true" />
+        </property>
+        <set name="voitures" table="voiture" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="id_pac_voiture" not-null="true" />
+            </key>
+            <one-to-many class="dao.Voiture" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="loc_voiture_db"/>
+  <table-filter match-name="client"/>
+  <table-filter match-name="contrat"/>
+  <table-filter match-name="reservation"/>
+  <table-filter match-name="tc_pays"/>
+  <table-filter match-name="entretient"/>
+  <table-filter match-name="parc"/>
+  <table-filter match-name="facture"/>
+  <table-filter match-name="voiture"/>
+</hibernate-reverse-engineering>
